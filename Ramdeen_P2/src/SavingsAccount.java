@@ -26,7 +26,6 @@ public class SavingsAccount {
     // Calculates the monthly interest and updates the variable (also returns?)
     public void calculateMonthlyInterest(){
         this.savingsBalance += this.savingsBalance * annualInterestRate / 12.0;
-        System.out.println(this.savingsBalance);
     }
 
     /* Getters and Setters */
