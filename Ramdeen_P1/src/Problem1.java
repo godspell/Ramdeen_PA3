@@ -25,7 +25,7 @@ public class Problem1 {
     private final static int RANDOM         = 5;
 
     // used for decimal comparison (set to 2 decimal places)
-    private final static double EPSILON = 0.01;
+    private final static double EPSILON = 1e-2;
 
 
     // Returns True/False if depending on the user's answer.
@@ -51,16 +51,16 @@ public class Problem1 {
         // Check user Answer
         switch(temp_operator){
             case ADDITION:
-                checkAnswer = (num1 + num2) == (int) userAnswer;
+                checkAnswer = Double.compare((double)(num1 + num2), userAnswer) == 0;
                 break;
             case MULTIPLICATION:
-                checkAnswer = (num1 * num2) == (int) userAnswer;
+                checkAnswer = Double.compare((double)(num1 * num2), userAnswer) == 0;
                 break;
             case SUBTRACTION:
-                checkAnswer = (num1 - num2) == (int) userAnswer;
+                checkAnswer = Double.compare((double)(num1 - num2), userAnswer) == 0;
                 break;
             case DIVISION:
-                checkAnswer = Math.abs((double) num1 / num2 - userAnswer) < EPSILON;
+                checkAnswer = Math.abs((double) num1 / num2 - userAnswer) < EPSILON; // Default set to 2 decimal places
                 break;
             default:
                 System.out.println("ERROR: getUserAnswer(). default statement executed");
@@ -89,7 +89,7 @@ public class Problem1 {
                 break;
         }
 
-        // Enable this to make testing Easier
+        // Enable this to make testing Easier (displays the answer)
         /*
         switch(OPERATOR){
             case ADDITION:
@@ -109,7 +109,6 @@ public class Problem1 {
                 break;
         }
         */
-
         return scnr.nextDouble();
     }
 
@@ -246,6 +245,9 @@ public class Problem1 {
 
         // Loops Infinitely
         while(true) {
+            // Reset State variables
+            userScore = 0;
+
             // Print Intro Message b/c the program allows multiple attempts.
             System.out.println("====================================");
             System.out.println("Welcome!");
@@ -268,15 +270,17 @@ public class Problem1 {
             }
 
             // Display user Results
-            if (Double.compare((double) userScore / MAX_QUESTIONS, 0.75) < 0)
-                System.out.println("\nPlease ask your teacher for extra help\n");
+            System.out.printf("\nCorrect answers: %d, Incorrect answers: %d\n", userScore, MAX_QUESTIONS - userScore);
+            System.out.printf("Grade: %.1f%%\n", (double) userScore / MAX_QUESTIONS * 100.0);
+            if (Double.compare((double) userScore / MAX_QUESTIONS, 0.75) < 0) // Score lower than 75%
+                System.out.println("Please ask your teacher for extra help\n");
             else
-                System.out.println("\nCongratulations, you are ready to go to the next level!\n");
+                System.out.println("Congratulations, you are ready to go to the next level!\n");
 
             // Exit statement
             if (!tryAgain(scnr))
                 break;
-            System.out.println(); // Extra space
+            System.out.println(); // Extra space for next try
         }
 
         System.out.println("\nThank you for using this program.");

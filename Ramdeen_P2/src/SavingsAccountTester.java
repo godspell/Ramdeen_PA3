@@ -41,10 +41,8 @@ public class SavingsAccountTester {
         // Set the interest rate to 5%
         rate = 0.05;
         SavingsAccount.modifyInterestRate(rate);
-        System.out.printf("\nAfter 12 months with %.2f interest.\n", rate);
-        passTime(12, saver1, saver2);
+        System.out.printf("\nAfter 1 months with %.2f interest.\n", rate);
+        passTime(1, saver1, saver2);
         print(saver1, saver2);
-
-
     }
 }
